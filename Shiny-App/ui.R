@@ -25,7 +25,7 @@ sidebar <- dashboardSidebar(
   ),
   sidebarMenu
   (
-    menuItem("Yahoo Finance Data", tabName = "tab2", icon = icon("chart-line" ))
+    menuItem("Customized snp500 market analysis", tabName = "tab2", icon = icon("chart-line" ))
   ),
   sidebarMenu(
     menuItem("About this app", tabName = "About")
@@ -164,17 +164,48 @@ body <- dashboardBody(
       ## this is the third page
       tabItem(
         tabName = "About",
-        h1('title is this'),
+        h1('part 1: Protfolio Analysis'),
         br(),
-        
         h4(
-          'hi,
-          myname
-          you
-          are
-          your name'
-          
-        ), br(),h4('melelemelem')
+          'To run this part, we need stored data, multiple columns of each different stocks, and if you add 
+          bench mark, you could see how it performs differently. Bench mark data could be given by portfolio 
+          manager and subject to change.'
+        ), 
+        br(),
+        h4('If user wants to customize input stock, user can go to next dash board, <Customized snp500 market analysis>'),
+        h4('rolling anulized volatility will be shown for derivative trader, and also alpha and beta extracted from linear regression will be shown also'),
+        br(),
+        br(),
+        h1('part 2: Customized snp500 market Analysis'),
+        br(),
+        h4('
+           In case user wants to analyze stocks included in SnP500, user can use customize input.
+           '),
+        br(),
+        h4('
+           User select their own preferred asset class from SnP500, and do following analysis.
+           '),
+        h4(
+          'Rolling Linear regression prediction(shows upper,lower bound of prediction also), with prediction score.'
+        ),
+        h4(
+          'This predictions hyper parameter(window size) can be adjusted according to the user'
+        ),
+        h4(
+          'one restriction of window size: 0<= window size < length(targeted_stock)'
+        ),
+        br(),
+        h4(
+          'PCA analysis. Here, user will see the variance analysis. Bigger variance shows how its coresponding stock has more importance or bigger impact to explain SnP500 market at given period'
+        ),
+        h4(
+          'To run PCA analysis, Use input section separated by coma. Put more than 2 stocks to analyze. Just type the ticker name of stocks of SnP500.'
+        ),
+        br(),
+        h4(
+          'Anualized rolling volatility curve which equity derivative trader can use this as an another source of signal to see market'
+        )
+        
       )
   )
 )
