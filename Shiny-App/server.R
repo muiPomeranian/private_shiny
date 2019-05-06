@@ -1,4 +1,4 @@
-## SERVER SIDE
+## SERVER SIDE,
 
 # That's the brain of the UI. 
 # Deals with the actual calculations and data manipulation. 
@@ -16,14 +16,7 @@ shinyServer(function(input,output, session){
     prices = window(prices, start = input$dateRange[1], end = input$dateRange[2])
     vect1 = rebase(as.numeric(prices[,input$ticker]),100)
     vect2 = rebase(as.numeric(prices$Bench),100)
-    # f1 = vect1[1]
-    # f2 = vect2[2]
-    # for (y in 1:(length(time(prices))))
-    # {
-    #   vect1[y] = 100* vect1[y]/as.numeric(f1)	
-    #   vect2[y] = 100* vect2[y]/as.numeric(f2)	
-    # 
-    # }
+
         plot_ly( x = time(prices), y = vect1, type = 'scatter', mode = 'lines', name = 'Company') %>% 
           add_trace(y  = vect2, name = 'Benchmark',mode = 'lines')
  })
@@ -51,22 +44,7 @@ output$plot3 = renderPlotly({
  
 })
 
-## By creating a reactive value a, we compute this value only once and use for different outputs
-## a will depend in input$ticker2, input$ticker3 and daterange
-## Whenever one of these changes. a is recomputed automatically
-# a = observe({
-#   
-#   if(input$ticker3=="")
-#   {
-#     ticker_select = input$ticker2
-#   }else
-#   {
-#     ticker_select = input$ticker3
-#   }
-#   print(getyahooprice(ticker_select,input$dateRange2[1],input$dateRange2[2]))
-#   as.data.frame(getyahooprice(ticker_select,input$dateRange2[1],input$dateRange2[2]))
-#   
-# })
+
 
 
 output$plot5 = renderPlotly({
@@ -243,19 +221,11 @@ output$Table1 = DT::renderDataTable({
       DT::datatable(df_results,
                     options = list(autoWidth = FALSE, searching = FALSE, dom = 't'
 
-                                   # columnDefs = list(
-                                   #   list(className = 'dt-center', targets = 0:1),
-                                   #   list(width = '100', targets = 0:1)
-                                   #   # list(width = '80', targets = 1:5)
-                                   # )
-
                     )
 
       )
 
     })
-
-
 
       })
 

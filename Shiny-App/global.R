@@ -23,7 +23,7 @@ name_project = "DASHBOARD STATISTICS"
 # prices_to_rdata(filename)
 
 ## loading prices from existing database
-load('prices.Rdata')
+load('data/prices.Rdata')
 
 companies = colnames(prices)[-(1:2)]
 
@@ -31,14 +31,11 @@ returns = Return.calculate(prices, method = 'log')
 monthly_returns = do.call(cbind, lapply(prices, monthlyReturn))
 colnames(monthly_returns) = colnames(prices)
 
-load('st_dev_df.Rdata')
+load('data/st_dev_df.Rdata')
 
-
-regr_test = lm(ABI.BB.Equity ~ Bench, data = returns )
-summary(regr_test)
 
 ## loading data for a web based database
 
-tickers =read.csv('tickers.csv', header = F)
+tickers =read.csv('data/tickers.csv', header = F)
 tickers = as.character(tickers[,1])
-  
+
