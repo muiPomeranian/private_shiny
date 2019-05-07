@@ -1,4 +1,3 @@
-
 # Interface design details. 
 ################################################
 
@@ -37,7 +36,6 @@ sidebar <- dashboardSidebar(
   ),
   
   radioButtons('radio1', label = 'Input Asset Class', choices = c('Stocks'))
-  
 )
 
 #################### BODY ####################
@@ -273,7 +271,3 @@ ui <- dashboardPage(
   
   title = "Portfolio Analysis Dashboard", skin = "blue" ,
   header, sidebar,body)
-
-
-
-
