@@ -43,7 +43,7 @@ body <- dashboardBody(
   tabItems(
     ## this is the first page
       tabItem(
-        # you need to link the tabItem to a page from Dashboard Sidebar
+        # we need to link the tabItem to a page from Dashboard Sidebar
         tabName = "tab1",
         
         column(4,
@@ -92,7 +92,7 @@ body <- dashboardBody(
       
       ## this is the second page
       tabItem(
-        # you need to link the tabItem to a page from Dashboard Sidebar
+        # we need to link the tabItem to a page from Dashboard Sidebar
         tabName = "tab2",
         column(4,
                box( solidHeader = T, status = "primary",  title = "Data Specifications.", width = NULL,
@@ -101,8 +101,6 @@ body <- dashboardBody(
                     dateRangeInput('dateRange2',
                                    label = 'Time Frame Selection', 
                                    format = "mm/dd/yyyy",weekstart = 1,
-                                   # min = time(prices)[1],
-                                   # max =  time(prices)[length( time(prices))], 
                                    start = '2018-01-01', end = Sys.time(),
                                    width = "100%"
                     ),

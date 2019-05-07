@@ -1,4 +1,6 @@
 
+## this will calculated the standard deviation based on sliding window.
+## Also, it will return the annulized standard deviation based on market live day out of 365 days in a year
 stdevwind = function(returns)
 {
   st_dev_df = c()
@@ -15,11 +17,12 @@ stdevwind = function(returns)
   
 }
 
-## function to load a large csv file, convert to XTS and afterwards save as Rdata so it is faster to load and use
-## XTS is a time series format which allows computation of time frame windows
-## suppose we need to compute the return between date A and date B, we do window(prices, start = A, end = B)
-## this is possible with xts, and not with dataframe as dataframe sees a date as a character
-
+## this function will load a large csv file and will cast it as XTS data class after save this as R data format
+## this will allow faster loading and calculation
+## XTS  is special time series package which handles and allow users to compute based on time frame windows.
+## If user want to compute the return between date A and B, use do window(prices, start = A, end = B)
+## xts class data is working for this method.
+## dataframe, is not working since data frame sees a date as a character
 prices_to_rdata  = function(filename)
 {
   prices = read.csv(filename)
@@ -32,7 +35,7 @@ prices_to_rdata  = function(filename)
 
 ## when comparing two price series of stocks for a given window, we need to rebase them otherwise, imagine stock 1 has a price of 100
 # and stock 2 a price of 1000, you cannot put on same chart, and imagine stock price grows to 150 (+50%) while stock 2 grows to 1050 (+5%)
-# you can visualise than only if you rebase to same scale
+# we can visualise than only if you rebase to same scale
 rebase = function(vector, scale)
 {
   
@@ -41,13 +44,12 @@ rebase = function(vector, scale)
   print(f1)
   for (y in 1:length(vector))
   {
-    # print(y)
     vector[y] = scale* vector[y]/as.numeric(f1)	
   }
   return(vector)
 }
 
-
+# this create the new environment to store the result
 sp500 <- new.env()
 
 # this function get the <<single>> stock information from source, default true for getting close price
@@ -57,7 +59,7 @@ get_single_stock = function(start,end,ticker_name, source_name)
   return(sp500[[ticker_name]][,4])
 }
 
-
+# this function will get the each single stock corresponding to the ticker name
 getyahooprice = function(tickername, start, end)
 {
   start <- start
@@ -68,6 +70,7 @@ getyahooprice = function(tickername, start, end)
   return(a)
 }
 
+# this function will stacked each stock(what User decided to wrangle together) as a columnwise
 get_multiple_stock = function(list_stocks,start, end)
 {
   df_output = c()
@@ -95,7 +98,8 @@ execute_roll_linear = function(a, window_size){
   return(rolled_input)
 }
 
-
+# below line will compute the all necessary tool to draw the rolling sliding window based linear regression
+# it will draw the line for each corresponding purpose, as commented 
 draw_comparison_result_plot = function(input,rolled_input){
   # rolled_input = execute_roll_linear(input,window_size)
   plot(index(input), input, type="l", lwd=2, col = 'black', las=1 ) # real plot
@@ -106,29 +110,35 @@ draw_comparison_result_plot = function(input,rolled_input){
   legend("topleft", legend = c('Return: Black', 'Prediction: Orange','Lower bound: Purple', 'Upper bound: Purple', 'Reg line: Red') )
 }
 
+# this will give rmse calculated score
+# this automatically handles the different window size of input data
 get_rmse = function(pred, original){
   original = window(original, start = start(pred))
   return(sqrt(mean( (pred - original)^2 ) ) )
 }
 
+# this will give MAE calculated score
+# this automatically handles the different window size of input data
 get_mae = function( pred, original){
   original = window(original, start = start(pred))
   return(sqrt(mean( abs(pred - original)) ) )
 }
 
-
+# this gives the summary analyze of given bunch of stocks
 give_summary = function(stock_bunch)
 {
   temp_pca = prcomp(stock_bunch, center = TRUE ,scale. = TRUE)
   summary(temp_pca)  
 }
 
+# this gives the variance analysis 
 draw_var_explanation = function(stock_bunch){
   temp_pca = prcomp(stock_bunch, center = TRUE ,scale. = TRUE)
   res = fviz_eig(temp_pca)
   return(res)
 }
 
+# below will draw the variance comparison plot to give an idea of which stock is more important to explain market of SnP
 draw_pca_var_plot = function(stock_bunch)
 {
   temp_pca = prcomp(stock_bunch, center = TRUE ,scale. = TRUE)

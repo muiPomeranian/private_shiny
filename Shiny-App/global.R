@@ -27,8 +27,12 @@ load('data/prices.Rdata')
 
 companies = colnames(prices)[-(1:2)]
 
+# This will use log return based result of stock prices to keep the statioinarity of data(differencing with lag 1)
 returns = Return.calculate(prices, method = 'log')
+
 monthly_returns = do.call(cbind, lapply(prices, monthlyReturn))
+
+# it could be the all possilbe choices from the input data .R file
 colnames(monthly_returns) = colnames(prices)
 
 load('data/st_dev_df.Rdata')
@@ -36,6 +40,7 @@ load('data/st_dev_df.Rdata')
 
 ## loading data for a web based database
 
+# ticker name will be readed 
 tickers =read.csv('data/tickers.csv', header = F)
 tickers = as.character(tickers[,1])
 

@@ -1,6 +1,6 @@
 ## SERVER SIDE,
 
-# That's the brain of the UI. 
+# This is the brain of the UI. 
 # Deals with the actual calculations and data manipulation. 
 
 
@@ -13,21 +13,24 @@ shinyServer(function(input,output, session){
   )
   
  output$plot1 <- renderPlotly({
+   # below will show the percentage of the bench mark and return prices of stock
     prices = window(prices, start = input$dateRange[1], end = input$dateRange[2])
     vect1 = rebase(as.numeric(prices[,input$ticker]),100)
     vect2 = rebase(as.numeric(prices$Bench),100)
 
-        plot_ly( x = time(prices), y = vect1, type = 'scatter', mode = 'lines', name = 'Company') %>% 
+    # below line will draw the two different (benchmark and return)of stocks graph in the same plot
+    plot_ly( x = time(prices), y = vect1, type = 'scatter', mode = 'lines', name = 'Company') %>% 
           add_trace(y  = vect2, name = 'Benchmark',mode = 'lines')
  })
  
 output$Chart2 = renderPlotly({
+  # below will calculate the sliding window based method standard deviation to plot
   st_dev_df = window(st_dev_df, start = input$dateRange[1], end = input$dateRange[2])
   plot_ly( x = time(st_dev_df), y = as.numeric(st_dev_df[,input$ticker]), type = 'scatter', mode = 'lines', name = 'plot')
 })
 
 output$plot3 = renderPlotly({
-  # 
+  # below line will put the data together to draw the porfolio regression graph
   vector1 = window(monthly_returns[,input$ticker], start = input$dateRange[1], end = input$dateRange[2])
   vector2 = window(monthly_returns$Bench, start = input$dateRange[1], end = input$dateRange[2])
   df3 = cbind(vector1,vector2)
@@ -48,6 +51,8 @@ output$plot3 = renderPlotly({
 
 
 output$plot5 = renderPlotly({
+  # for all the input tickers, it will be a selected input from the all choices,
+  # or the string typed input which user want to put it into
   if(input$ticker3=="")
   {
     ticker_select = input$ticker2
@@ -75,16 +80,17 @@ output$plot6 = renderPlotly({
     ticker_select = input$ticker3
   }
 
+  # this will get the data from yahoo finance, (can be lively active)
   data5 = getyahooprice(ticker_select,input$dateRange2[1],input$dateRange2[2])
   print(colnames(data5))
   
   # print(data5)
   returns5 = Return.calculate(data5, method = 'log')
   stdev5 = stdevwind(returns5)
-  # 
-   stdev5 = as.data.frame(stdev5)
+  stdev5 = as.data.frame(stdev5)
   print(stdev5)
-  # # plot(data5, main = input$ticker2)
+  
+  # will draw the anualized volatility return graph calculated
   plot_ly(x = as.Date(row.names(stdev5)), y = stdev5[,1],  type = 'scatter', mode = 'lines', name = paste('Rolling volatility of:',ticker_select) )
 })
 
@@ -99,10 +105,14 @@ output$chart10 = renderPlot({
   }
   a = getyahooprice(ticker_select,input$dateRange2[1],input$dateRange2[2])
   
+  # get the calculated result which contains the upper,lower,and fitted(middle) of result
   rolled_input = execute_roll_linear(a,input$windrange)
   
+  # this will draw the plot of the result based on the prediction and will show superior result 
+  # will show how linear regression(regular) is not working well compared to this
   draw_comparison_result_plot(a, rolled_input)
 
+  # this will shows the result score based on each metric on table bottom right
   output$Table2 = DT::renderDataTable({
     df2 = matrix(data = NA,nrow=2,ncol = 2)
     colnames(df2) = c('Score Metric',"Value")
