@@ -2,8 +2,6 @@
 
 # This is the brain of the UI. 
 # Deals with the actual calculations and data manipulation. 
-
-
 shinyServer(function(input,output, session){
   options(warn=0)
   
@@ -12,8 +10,8 @@ shinyServer(function(input,output, session){
     alpha1 = 0,  beta1 = 0, calculating_status = FALSE
   )
   
- output$plot1 <- renderPlotly({
-   # below will show the percentage of the bench mark and return prices of stock
+# below will show the percentage of the bench mark and return prices of stock
+output$plot1 <- renderPlotly({
     prices = window(prices, start = input$dateRange[1], end = input$dateRange[2])
     vect1 = rebase(as.numeric(prices[,input$ticker]),100)
     vect2 = rebase(as.numeric(prices$Bench),100)
@@ -23,14 +21,14 @@ shinyServer(function(input,output, session){
           add_trace(y  = vect2, name = 'Benchmark',mode = 'lines')
  })
  
+# below will calculate the sliding window based method standard deviation to plot
 output$Chart2 = renderPlotly({
-  # below will calculate the sliding window based method standard deviation to plot
   st_dev_df = window(st_dev_df, start = input$dateRange[1], end = input$dateRange[2])
   plot_ly( x = time(st_dev_df), y = as.numeric(st_dev_df[,input$ticker]), type = 'scatter', mode = 'lines', name = 'plot')
 })
 
+# below line will put the data together to draw the porfolio regression graph
 output$plot3 = renderPlotly({
-  # below line will put the data together to draw the porfolio regression graph
   vector1 = window(monthly_returns[,input$ticker], start = input$dateRange[1], end = input$dateRange[2])
   vector2 = window(monthly_returns$Bench, start = input$dateRange[1], end = input$dateRange[2])
   df3 = cbind(vector1,vector2)
@@ -47,12 +45,10 @@ output$plot3 = renderPlotly({
  
 })
 
-
-
-
+# for selected tickers, this wil plot the return graph of stocks
+# for all the input tickers, it will be a selected input from the all choices,
+# or the string typed input which user want to put it into
 output$plot5 = renderPlotly({
-  # for all the input tickers, it will be a selected input from the all choices,
-  # or the string typed input which user want to put it into
   if(input$ticker3=="")
   {
     ticker_select = input$ticker2
@@ -68,9 +64,8 @@ output$plot5 = renderPlotly({
     plot_ly(x = as.Date(row.names(data5)), y = data5[,1],  type = 'scatter', mode = 'lines', name = paste('Prices of:',ticker_select) )
 })
 
-
-
-
+# below will get the single stock data and will plot it
+# will calculate the standard deviation based on moving window
 output$plot6 = renderPlotly({
   if(input$ticker3=="")
   {
@@ -94,6 +89,8 @@ output$plot6 = renderPlotly({
   plot_ly(x = as.Date(row.names(stdev5)), y = stdev5[,1],  type = 'scatter', mode = 'lines', name = paste('Rolling volatility of:',ticker_select) )
 })
 
+# this will get the single price of tickek designated by users and will perform each action below
+# rolling sliding window based regression performance, draw the plot, give the scores result
 output$chart10 = renderPlot({
 
   if(input$ticker3=="")
@@ -126,7 +123,6 @@ output$chart10 = renderPlot({
                   options = list(autoWidth = TRUE, searching = FALSE, dom = 't'
                                  
                   )
-                  
     )
     
   })
@@ -134,7 +130,7 @@ output$chart10 = renderPlot({
   
 })
 
-
+# this will plot the PCA result based on the customized function built in this shiny app
 output$plotPCA = renderPlot({
 
   if(input$areainput!="")
@@ -144,13 +140,7 @@ output$plotPCA = renderPlot({
     print(list_stocks)
     dataPCA = get_multiple_stock(list_stocks, input$dateRange2[1],input$dateRange2[2])
     draw_pca_var_plot(dataPCA)
-    
-
-    
-
-    
   }
-
 })
 
 output$plotVAR = renderPlot({
@@ -163,11 +153,9 @@ output$plotVAR = renderPlot({
     dataPCA = get_multiple_stock(list_stocks, input$dateRange2[1],input$dateRange2[2])
     draw_var_explanation(dataPCA)
   }
-  
 })
 
 output$dfImportance = DT::renderDataTable({
-  
   list_stocks = input$areainput
   list_stocks = unlist(strsplit(list_stocks, ","))
   print(list_stocks)
@@ -183,35 +171,17 @@ output$dfImportance = DT::renderDataTable({
   colnames(give_summary) = colz
   give_summary = round(give_summary,2)
   DT::datatable(give_summary
-                # options = list(autoWidth = TRUE, searching = FALSE, dom = 't'
-                #                
-                #                # columnDefs = list(
-                #                #   list(className = 'dt-center', targets = 0:1),
-                #                #   list(width = '100', targets = 0:1)
-                #                #   # list(width = '80', targets = 1:5)
-                #                # )
-                               
-                #)
-                
   )
 })
 
-
-# output$calc_status = renderText ({
-#   if(globaldata$calculating_status== FALSE)
-#   {
-#     paste("Calculating")
-#   }else
-#     'hello'
-# 
-# })
-
-
-
+# below will give the window frame input selection based on the selected period
 output$windowframe = renderText ({
   paste("Period: from ",input$dateRange[1]," to ",input$dateRange[2], sep='')
 })
 
+# below will return all necessary format(rebased for percentage)
+# it will print out the result on shiney app
+# it contains the annulized return ,bench mark, alpha and beta calculated based on linear regression
 output$Table1 = DT::renderDataTable({
   
   returns_bench = window(returns$Bench, start = input$dateRange[1], end = input$dateRange[2])
@@ -219,25 +189,21 @@ output$Table1 = DT::renderDataTable({
   
   returns_ticker = window(returns[,input$ticker], start = input$dateRange[1], end = input$dateRange[2])
   ret_ticker =   paste(round(Return.annualized(returns_ticker, scale = 252, geometric = TRUE), 4) *100, "%", sep='')
-
+  
   df_results = rbind(ret_benchmark,ret_ticker)
   rownames(df_results) = c('Benchmark', input$ticker)
   print(df_results)
-   colnames(df_results) = c('Annualized Return')
-   df_results = cbind(df_results, c("",round(globaldata$alpha1,4)),c("",round(globaldata$beta1,4)))
-   colnames(df_results)[2] = 'Alpha vs Benchmark'
-   colnames(df_results)[3] = 'Beta vs Benchmark'
-   
-      DT::datatable(df_results,
-                    options = list(autoWidth = FALSE, searching = FALSE, dom = 't'
+  colnames(df_results) = c('Annualized Return')
+  df_results = cbind(df_results, c("",round(globaldata$alpha1,4)),c("",round(globaldata$beta1,4)))
+  colnames(df_results)[2] = 'Alpha vs Benchmark'
+  colnames(df_results)[3] = 'Beta vs Benchmark'
 
-                    )
-
-      )
-
-    })
-
-      })
+  DT::datatable(df_results,
+                options = list(autoWidth = FALSE, searching = FALSE, dom = 't'
+                )
+  )
+  })
+})
 
   
 
