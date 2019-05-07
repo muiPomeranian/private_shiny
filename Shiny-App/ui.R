@@ -208,8 +208,6 @@ body <- dashboardBody(
   )
 )
 
-
-
 # Create the UI using the header, sidebar, and body
 #################### PAGE ####################
 
