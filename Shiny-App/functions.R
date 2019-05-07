@@ -1,4 +1,3 @@
-
 # this will calculated the standard deviation based on sliding window.
 # Also, it will return the annulized standard deviation based on market live day out of 365 days in a year
 stdevwind = function(returns)
@@ -14,7 +13,6 @@ stdevwind = function(returns)
   st_dev_df = xts(st_dev_df, order.by = time(returns)[253:length(time(returns))])
   
   return(st_dev_df)
-  
 }
 
 # this function will load a large csv file and will cast it as XTS data class after save this as R data format
@@ -32,13 +30,11 @@ prices_to_rdata  = function(filename)
   save(prices, file = 'prices.Rdata')
 }
 
-
 # when comparing two price series of stocks for a given window, we need to rebase them otherwise, imagine stock 1 has a price of 100
 # and stock 2 a price of 1000, you cannot put on same chart, and imagine stock price grows to 150 (+50%) while stock 2 grows to 1050 (+5%)
 # we can visualise than only if you rebase to same scale
 rebase = function(vector, scale)
 {
-  
   f1 = vector[1]
   print(length(vector))
   print(f1)
@@ -173,7 +169,6 @@ draw_cluster_analysis = function(df_stocks, num_center, num_start){
     facet_grid(Cluster ~., scales = 'free_y')
 }
 
-
 # by comparing the plot result from this function, 
 # User can analysis the stock markets regime. For instance, for each plot shows how stock movesment behaves differently.
 # Could see the momentum of effectiveness in the market
@@ -188,14 +183,3 @@ give_cluster_dendogram = function(df_stocks){
   hcl = hclust(d)
   plot(hcl)
 }
-
-
-
-
-
-
-
-
-
-
-
