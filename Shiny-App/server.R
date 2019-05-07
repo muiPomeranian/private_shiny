@@ -145,7 +145,7 @@ shinyServer(function(input,output, session){
       }
     })
     
-    
+    # this will draw the variance plot from the pca calculated
     output$plotVAR = renderPlot({
       
       if(input$areainput2!="")
@@ -158,6 +158,7 @@ shinyServer(function(input,output, session){
       }
     })
     
+    # this will convert the result from pca calculation as data frame and then put the result table to shiny
     output$dfImportance = DT::renderDataTable({
       list_stocks = input$areainput2
       list_stocks = unlist(strsplit(list_stocks, ","))
@@ -176,12 +177,9 @@ shinyServer(function(input,output, session){
       DT::datatable(give_summary
       )
     })
-    
-    
-    
-    
   })
   
+  # below will draw the cluster result calculated to put on shiney app by getting stacked stocks
   observeEvent(input$do2, { 
     
     output$plotCluster = renderPlot({
@@ -197,7 +195,7 @@ shinyServer(function(input,output, session){
       }
     })
     
-    
+    # this will get the user chosen stocks(stacked) and will put out the dendogram result
     output$plotDend = renderPlot({
       
       if(input$areainput2!="")
@@ -209,9 +207,8 @@ shinyServer(function(input,output, session){
         give_cluster_dendogram(dataDend)
       }
     })
-    
-    
   })
+  
   # this dynamically handling in accordance with the input parameter user choose. We need this since there should be the maximum
   output$num_center <- renderUI({
     
