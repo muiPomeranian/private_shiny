@@ -25,11 +25,11 @@ sidebar <- dashboardSidebar(
   ),
   sidebarMenu
   (
-    menuItem("Customized S&P500 market analysis", tabName = "tab2", icon = icon("chart-line" ))
+    menuItem("Customized SP500 analysis", tabName = "tab2", icon = icon("chart-line" ))
   ),
   sidebarMenu
   (
-    menuItem("Cluster Analysis", tabName = "tab3", icon = icon("chart-line" ))
+    menuItem("Unsupervised/ML Analysis", tabName = "tab3", icon = icon("chart-line" ))
   )
   ,
   sidebarMenu(
