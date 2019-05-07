@@ -145,6 +145,7 @@ body <- dashboardBody(
              
       )
     ),
+    
     tabItem(
       # we need to link the tabItem to a page from Dashboard Sidebar
       tabName = "tab3",
@@ -201,8 +202,8 @@ body <- dashboardBody(
                   
              )
       )
-      
     ),
+    
     ## this is the third page
     tabItem(
       tabName = "About",
