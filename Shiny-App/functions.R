@@ -147,15 +147,16 @@ draw_pca_var_plot = function(stock_bunch)
   
 }
 
-## this function is to transform a PCA type output into a regular data frame to it can be used in Shiny as a DT output
+# this function is to transform a PCA type output into a regular data frame to it can be used in Shiny as a DT output
 pca_importance <- function(x) {
   vars <- x$sdev^2
   vars <- vars/sum(vars)
   rbind(`Standard deviation` = x$sdev, `Proportion of Variance` = vars, 
         `Cumulative Proportion` = cumsum(vars))
-  
 }
 
+# this function draws the analysis result of clutering. It will calculate the kmeans and use its centers
+# all algorithm process is designated by Users choice. 
 draw_cluster_analysis = function(df_stocks, num_center, num_start){
   df_scaled_stocks = scale(df_stocks)
   km_model = kmeans(df_scaled_stocks,centers = num_center, nstart = num_start)
