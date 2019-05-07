@@ -102,7 +102,7 @@ body <- dashboardBody(
       column(4,
              box( solidHeader = T, status = "primary",  title = "Data Specifications.", width = NULL,
                   selectInput(inputId = 'ticker2',label = 'Select a tech company ticker', choices = tickers),
-                  textInput(inputId = 'ticker3','Input any other ticker manually', value = ''),
+                  textInput(inputId = 'ticker3','If not on above list, Input any single snp ticker manually', value = ''),
                   dateRangeInput('dateRange2',
                                  label = 'Time Frame Selection', 
                                  format = "mm/dd/yyyy",weekstart = 1,
@@ -157,10 +157,10 @@ body <- dashboardBody(
                                  start = '2018-01-01', end = Sys.time(),
                                  width = "100%"
                   ),
-                  textAreaInput(inputId = 'areainput2', label = "Input tickers separated by coma", value = "", width = NULL, height = NULL,
+                  textAreaInput(inputId = 'areainput2', label = "Input tickers separated by comma(snp500s)", value = "", width = NULL, height = NULL,
                                 cols = NULL, rows = NULL, placeholder = NULL, resize = NULL),
                   
-                  actionButton("do", "Calculate PCA", icon = icon('save'), width = 400 ,
+                  actionButton("do", "Calculate PCA(takes few seconds,wait)", icon = icon('save'), width = 400 ,
                                style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
                   br(),  br(),  br(),
                   uiOutput('num_center'),

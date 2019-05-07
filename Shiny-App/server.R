@@ -79,7 +79,6 @@ shinyServer(function(input,output, session){
     data5 = getyahooprice(ticker_select,input$dateRange2[1],input$dateRange2[2])
     print(colnames(data5))
     
-    # print(data5)
     returns5 = Return.calculate(data5, method = 'log')
     stdev5 = stdevwind(returns5)
     stdev5 = as.data.frame(stdev5)
@@ -216,12 +215,9 @@ shinyServer(function(input,output, session){
   
   output$num_center <- renderUI({
     
-    sliderInput('num_center2', label = 'Number of Centers', min = 0, value = 1, step = 1,
+    sliderInput('num_center2', label = 'Number of Centers(dynamically adjusting to your ticker inputs)', min = 0, value = 1, step = 1,
                 max = length(unlist(strsplit(input$areainput2, ","))))  
-    
   })
-  
-  
   
   # below will give the window frame input selection based on the selected period
   output$windowframe = renderText ({
@@ -253,6 +249,3 @@ shinyServer(function(input,output, session){
     )
   })
 })
-
-
-

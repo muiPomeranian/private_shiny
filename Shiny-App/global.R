@@ -1,4 +1,3 @@
-
 # Loading universal stuff (packages, connecting to the other main project, DB, etc.)
 
 library(shiny)
@@ -38,10 +37,8 @@ colnames(monthly_returns) = colnames(prices)
 
 load('data/st_dev_df.Rdata')
 
-
 ## loading data for a web based database
 
 # ticker name will be readed 
 tickers =read.csv('data/tickers.csv', header = F)
 tickers = as.character(tickers[,1])
-
