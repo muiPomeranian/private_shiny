@@ -219,7 +219,10 @@ body <- dashboardBody(
       br(),
       br(),
       h1('part 2: Customized snp500 market Analysis'),
-      br(),
+      br(), br(),
+      h4(
+        'Anualized rolling volatility curve which equity derivative trader can use this as an another source of signal to see market'
+      ),
       h4('
          In case user wants to analyze stocks included in SnP500, user can use customize input.
          '),
@@ -237,6 +240,14 @@ body <- dashboardBody(
         'one restriction of window size: 0<= window size < length(targeted_stock)'
       ),
       br(),
+      br(),
+      br(),
+      h1('part 3: machine learning Analysis'),
+      br(),
+      h4(
+        'Here, User can use unsupervised machine learning algorithm to cluster and see the variance analysis in the snp stock market'
+      ),
+      br(),
       h4(
         'PCA analysis. Here, user will see the variance analysis. Bigger variance shows how its coresponding stock has more importance or bigger impact to explain SnP500 market at given period'
       ),
@@ -245,8 +256,11 @@ body <- dashboardBody(
       ),
       br(),
       h4(
-        'Anualized rolling volatility curve which equity derivative trader can use this as an another source of signal to see market'
-      )
+        'User can use k-mean clustering algorithm. Input parameter is dynamically adjusting to the current User choice stocks '
+      ),
+      h4(
+        'User can see the dendogram, and clustesring plot to see their similiarity, moving trend, importance, and market regimes movement which is very useful in trading'
+      ),
       
       )
       )
