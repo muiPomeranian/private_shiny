@@ -260,7 +260,7 @@ body <- dashboardBody(
       ),
       h4(
         'User can see the dendogram, and clustesring plot to see their similiarity, moving trend, importance, and market regimes movement which is very useful in trading'
-      ),
+      )
       
       )
       )
