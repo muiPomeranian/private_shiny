@@ -160,3 +160,54 @@ pca_importance <- function(x) {
   
 }
 
+
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+# 
+# 
+# 
+
+# 
+# 
+draw_cluster_analysis = function(df_stocks, num_center, num_start){
+  df_scaled_stocks = scale(df_stocks)
+  km_model = kmeans(df_scaled_stocks,centers = num_center, nstart = num_start)
+  centers = data.frame(cluster = factor(1:num_center), km_model$centers)
+  centers = as.data.frame(t(centers))
+  names(centers) = paste("Cluster",1:num_center)
+  centers$Symbol = row.names(centers)
+  centers = gather(centers, "Cluster", "Mean", -Symbol)
+  centers$Coloar = centers$Mean > 0
+  ggplot(centers, aes(x=Symbol, y=Mean, fill = 'red')) + geom_bar(stat = 'identity', position = 'identity', width = 0.80)+
+    facet_grid(Cluster ~., scales = 'free_y')
+}
+
+
+# # by comparing the plot result from this function, 
+# # User can analysis the stock markets regime. For instance, for each plot shows how stock movesment behaves differently.
+# # Could see the momentum of effectiveness in the market
+# # means of the variables in each cluster. 
+
+# # below function is another way to show the similiarities between each designated stocks User choose
+# # risk parity model can be combined with this. 
+# # this could be another indicator of similarities of stock movement in the market at given time period
+give_cluster_dendogram = function(df_stocks){
+  df = t(df_stocks)
+  d = dist(df)
+  hcl = hclust(d)
+  plot(hcl)
+}
+
+
+
+
+
+
+
+
+
+
+

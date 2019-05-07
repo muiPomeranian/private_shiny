@@ -13,7 +13,8 @@ library(fBasics)
 library(xts)
 library(profvis)
 library(quantmod)
-library("factoextra")
+library(factoextra)
+library(tidyquant)
 
 source('functions.R')
 
