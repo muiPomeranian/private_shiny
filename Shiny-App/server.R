@@ -1,4 +1,4 @@
-## SERVER SIDE,
+## Server side
 
 # This is the brain of the UI. 
 # Deals with the actual calculations and data manipulation. 
@@ -131,7 +131,7 @@ shinyServer(function(input,output, session){
   })
   
   observeEvent(input$do, { 
-    
+    # here will draw the pca result for the plotting
     output$plotPCA = renderPlot({
       
       if(input$areainput2!="")
@@ -212,7 +212,7 @@ shinyServer(function(input,output, session){
     
     
   })
-  
+  # this dynamically handling in accordance with the input parameter user choose. We need this since there should be the maximum
   output$num_center <- renderUI({
     
     sliderInput('num_center2', label = 'Number of Centers(dynamically adjusting to your ticker inputs)', min = 0, value = 1, step = 1,
