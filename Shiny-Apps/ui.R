@@ -269,6 +269,9 @@ body <- dashboardBody(
         'one restriction of window size: 0<= window size < length(targeted_stock)'
       ),
       br(),
+      h4('
+         The analysis from upside and downside result from each stock could be compared with the user choice bench mark(defalut id SPY). It will take the user chosen historical prices of a stock and bench mark and will consider returns only positive and ignore all negative returns. It omputes a historical track as negative days did not happen similar function for days as if posibe days did not happen. This metric allows to see how much user do better during upside markets adn downside markets seperately.
+         '),
       br(),
       br(),
       h1('part 3: machine learning Analysis'),

@@ -162,6 +162,11 @@ pca_importance <- function(x) {
   
 }
 
+## below function will draw the cluster analysis of kmeans
+## after computation of kmeans, there should be a user choice of parameter.
+## there is no statistically proven way to choose num_centers, but elbow method could be use to find good number(not perfectly better though)
+## this will draw histogram anlysis of given multiple datas to see their similarities, trends, risk parity etc
+## trader or user could see this plot to see the market regiem anlysis between each different sectors or stocks
 draw_cluster_analysis = function(df_stocks, num_center, num_start){
   df_scaled_stocks = scale(df_stocks)
   km_model = kmeans(df_scaled_stocks,centers = num_center, nstart = num_start)
