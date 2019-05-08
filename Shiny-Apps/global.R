@@ -1,5 +1,8 @@
 # Loading universal stuff (packages, connecting to the other main project, DB, etc.)
 
+library(quantmod)
+library(TTR)
+library(sqldf)
 library(shiny)
 library(shinydashboard)
 library(shinythemes)

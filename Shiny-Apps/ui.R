@@ -289,6 +289,12 @@ body <- dashboardBody(
       ),
       h4(
         'User can see the dendogram, and clustesring plot to see their similiarity, moving trend, importance, and market regimes movement which is very useful in trading'
+      ),br(),
+      h1('part 4: technical Analysis'),
+      br(),
+      h4(
+        'User can choose the stock ticker name(single), and time frame and few hyper parameter for the bollinger band, candle and smoothing moving average graph to see as an indicator. This indicator and chart is well used for the derivative trader also.
+        If further analysis is required, user can choose to control the parameter. All time frame is dynamically adjusted for the given period. No need to worry about out of index,boundary,timeframe error'
       )
       )
       )
