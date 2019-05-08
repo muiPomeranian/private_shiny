@@ -1,5 +1,5 @@
-# function part !!!
-# same as R packages I built. Pleaes refer there if curious!
+# function part !!!,
+# same as R packages I built. Pleaes refer there if curious!!
 
 ## this will calculated the standard deviation based on sliding window.
 ## Also, it will return the annulized standard deviation based on market live day out of 365 days in a year

@@ -1,4 +1,4 @@
-# Interface design details ! 
+# Interface design details !,
 ################################################
 
 library(shiny)
@@ -53,7 +53,7 @@ body <- dashboardBody(
       tabName = "tab1",
       
       column(4,
-             box( solidHeader = T, status = "primary",  title = "Random Buttons", width = NULL,
+             box( solidHeader = T, status = "primary",  title = "User stock choice(using stored stock data, can be replaced by User", width = NULL,
                   
                   selectInput(inputId = 'ticker',label = 'Select a company', choices = companies),
                   
