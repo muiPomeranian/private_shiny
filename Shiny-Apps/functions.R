@@ -1,7 +1,8 @@
-# this will calculated the standard deviation based on sliding window.
-# Also, it will return the annulized standard deviation based on market live day out of 365 days in a year
+# function part !!!
+# same as R packages I built. Pleaes refer there if curious!
 
-
+## this will calculated the standard deviation based on sliding window.
+## Also, it will return the annulized standard deviation based on market live day out of 365 days in a year
 stdevwind = function(returns)
 {
   st_dev_df = c()
@@ -15,14 +16,15 @@ stdevwind = function(returns)
   st_dev_df = xts(st_dev_df, order.by = time(returns)[253:length(time(returns))])
   
   return(st_dev_df)
+  
 }
 
-# this function will load a large csv file and will cast it as XTS data class after save this as R data format
-# this will allow faster loading and calculation
-# XTS  is special time series package which handles and allow users to compute based on time frame windows.
-# If user want to compute the return between date A and B, use do window(prices, start = A, end = B)
-# xts class data is working for this method.
-# dataframe, is not working since data frame sees a date as a character
+## this function will load a large csv file and will cast it as XTS data class after save this as R data format
+## this will allow faster loading and calculation
+## XTS  is special time series package which handles and allow users to compute based on time frame windows.
+## If user want to compute the return between date A and B, use do window(prices, start = A, end = B)
+## xts class data is working for this method.
+## dataframe, is not working since data frame sees a date as a character
 prices_to_rdata  = function(filename)
 {
   prices = read.csv(filename)
@@ -32,11 +34,13 @@ prices_to_rdata  = function(filename)
   save(prices, file = 'prices.Rdata')
 }
 
-# when comparing two price series of stocks for a given window, we need to rebase them otherwise, imagine stock 1 has a price of 100
+
+## when comparing two price series of stocks for a given window, we need to rebase them otherwise, imagine stock 1 has a price of 100
 # and stock 2 a price of 1000, you cannot put on same chart, and imagine stock price grows to 150 (+50%) while stock 2 grows to 1050 (+5%)
 # we can visualise than only if you rebase to same scale
 rebase = function(vector, scale)
 {
+  
   f1 = vector[1]
   print(length(vector))
   print(f1)
@@ -149,16 +153,27 @@ draw_pca_var_plot = function(stock_bunch)
   
 }
 
-# this function is to transform a PCA type output into a regular data frame to it can be used in Shiny as a DT output
+## this function is to transform a PCA type output into a regular data frame to it can be used in Shiny as a DT output
 pca_importance <- function(x) {
   vars <- x$sdev^2
   vars <- vars/sum(vars)
   rbind(`Standard deviation` = x$sdev, `Proportion of Variance` = vars, 
         `Cumulative Proportion` = cumsum(vars))
+  
 }
 
-# this function draws the analysis result of clutering. It will calculate the kmeans and use its centers
-# all algorithm process is designated by Users choice. 
+
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+# 
+# 
+# 
+
+# 
+# 
 draw_cluster_analysis = function(df_stocks, num_center, num_start){
   df_scaled_stocks = scale(df_stocks)
   km_model = kmeans(df_scaled_stocks,centers = num_center, nstart = num_start)
@@ -172,21 +187,21 @@ draw_cluster_analysis = function(df_stocks, num_center, num_start){
     facet_grid(Cluster ~., scales = 'free_y')
 }
 
-# by comparing the plot result from this function, 
-# User can analysis the stock markets regime. For instance, for each plot shows how stock movesment behaves differently.
-# Could see the momentum of effectiveness in the market
-# means of the variables in each cluster. 
 
-# below function is another way to show the similiarities between each designated stocks User choose
-# risk parity model can be combined with this. 
-# this could be another indicator of similarities of stock movement in the market at given time period
+# # by comparing the plot result from this function, 
+# # User can analysis the stock markets regime. For instance, for each plot shows how stock movesment behaves differently.
+# # Could see the momentum of effectiveness in the market
+# # means of the variables in each cluster. 
+
+# # below function is another way to show the similiarities between each designated stocks User choose
+# # risk parity model can be combined with this. 
+# # this could be another indicator of similarities of stock movement in the market at given time period
 give_cluster_dendogram = function(df_stocks){
   df = t(df_stocks)
   d = dist(df)
   hcl = hclust(d)
   plot(hcl)
 }
-
 
 # to interprete bollinger bands graph: use statsitcal terms.
 # when user use sd=2, 95% of the data will fall in between the bollinger bands upper and lower bands.
