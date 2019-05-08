@@ -1,4 +1,4 @@
-# Loading universal stuff (packages, connecting to the other main project, DB, etc.)
+# Loading universal stuff (packages, connecting to the other main project, DB, etc...)
 
 library(quantmod)
 library(TTR)
