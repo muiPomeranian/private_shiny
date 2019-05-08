@@ -200,7 +200,7 @@ body <- dashboardBody(
                     tabPanel("Cluster Analysis", icon  = icon("chart-line"),
                              plotOutput('plotCluster')
                     ),
-                    tabPanel("Cluster Dendogramm",icon  = icon("chart-line"),
+                    tabPanel("Cluster Dendogramm(requires at least 3 stocks input)",icon  = icon("chart-line"),
                              plotOutput("plotDend")
                     )
                   )

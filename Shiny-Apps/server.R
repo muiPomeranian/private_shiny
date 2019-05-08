@@ -72,8 +72,7 @@ shinyServer(function(input,output, session){
     
     print(length(vect1))
     print(length(vect2))
-    # print(data5)
-    # plot(data5, main = input$ticker2)
+    
     plot_ly(x = as.Date(row.names(data5)), y = vect1,  type = 'scatter', mode = 'lines', name = paste('Prices of:',ticker_select) )  %>%
       add_trace(y  = vect2, name = input$defaultbenchmark,mode = 'lines')
   })
@@ -94,7 +93,7 @@ shinyServer(function(input,output, session){
     databm = databm[time(stock),]
     
     
-    
+    # here we compute the upside(price>0) and downside(price<0) cumulatively calculate
     df_output = compute_upside_downside(stock,databm)
     time = time(df_output)
     df_output = as.data.frame(df_output)
@@ -296,13 +295,7 @@ shinyServer(function(input,output, session){
     {
       # ticker_name = 'MSFT'
       single_stock = getSymbols(input$ticker_tech, src='yahoo',from= input$dateRange_tech[1],to  = input$dateRange_tech[2], auto.assign = FALSE)
-      # sdv = 1
-      # n1=5 # parameter for Bollinger Bands
-      # n2=20 # parameter for SMA1
-      # n3=30 # parameter for SMA2
-      # months=5
-      
-      # last_period_months = paste('last',input$months,'months') # last 6 months last 9 months etc...
+
       draw_stock_analysis(single_stock,input$ticker_tech, input$stdev, input$bbn1,input$bbn2,input$bbn3,paste('last',input$months,'months'))
     }
     
