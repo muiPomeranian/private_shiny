@@ -290,6 +290,9 @@ body <- dashboardBody(
     ## this is the third page
     tabItem(
       tabName = "About",
+      h1('Please see the link below for demo video'),
+      br(),
+      h3('https://youtu.be/u3UR1nP9U_0'),
       h1('part 1: Protfolio Analysis'),
       br(),
       h4(
