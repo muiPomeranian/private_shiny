@@ -1,0 +1,103 @@
+Company,Symbol,Weight
+Microsoft Corp,MSFT,10.8
+Amazon.com Inc,AMZN,10.2
+Apple Inc,AAPL,10.04
+Facebook Inc,FB,4.91
+Alphabet Inc,GOOG,4.45
+Alphabet Inc,GOOGL,3.91
+Cisco Systems Inc,CSCO,2.87
+Intel Corp,INTC,2.54
+Comcast Corp,CMCSA,2.43
+PepsiCo Inc,PEP,2.24
+Netflix Inc,NFLX,1.89
+Adobe Inc,ADBE,1.66
+PayPal Holdings Inc,PYPL,1.6
+Broadcom Inc,AVGO,1.5
+Amgen Inc,AMGN,1.31
+QUALCOMM Inc,QCOM,1.31
+Texas Instruments Inc,TXN,1.28
+NVIDIA Corp,NVDA,1.23
+Starbucks Corp,SBUX,1.2
+Charter Communications Inc,CHTR,1.05
+Gilead Sciences Inc,GILD,1.04
+Booking Holdings Inc,BKNG,1.01
+Mondelez International Inc,MDLZ,0.93
+Automatic Data Processing Inc,ADP,0.87
+Celgene Corp,CELG,0.83
+CSX Corp,CSX,0.8
+T-Mobile US Inc,TMUS,0.78
+Intuit Inc,INTU,0.78
+Intuitive Surgical Inc,ISRG,0.7
+Walgreens Boots Alliance Inc,WBA,0.62
+Biogen Inc,BIIB,0.57
+Illumina Inc,ILMN,0.56
+Marriott International Inc/MD,MAR,0.56
+Micron Technology Inc,MU,0.54
+Vertex Pharmaceuticals Inc,VRTX,0.53
+Baidu Inc ADR,BIDU,0.53
+Tesla Inc,TSLA,0.5
+Kraft Heinz Co/The,KHC,0.49
+Analog Devices Inc,ADI,0.49
+Applied Materials Inc,AMAT,0.48
+Autodesk Inc,ADSK,0.47
+Ross Stores Inc,ROST,0.44
+Activision Blizzard Inc,ATVI,0.43
+Monster Beverage Corp,MNST,0.42
+eBay Inc,EBAY,0.42
+Cognizant Technology Solutions Corp,CTSH,0.42
+Fiserv Inc,FISV,0.41
+Regeneron Pharmaceuticals Inc,REGN,0.41
+NXP Semiconductors NV,NXPI,0.4
+Workday Inc,WDAY,0.38
+Paychex Inc,PAYX,0.38
+Xcel Energy Inc,XEL,0.37
+Lam Research Corp,LRCX,0.37
+Xilinx Inc,XLNX,0.36
+Alexion Pharmaceuticals Inc,ALXN,0.36
+Electronic Arts Inc,EA,0.36
+O'Reilly Automotive Inc,ORLY,0.35
+JD.com Inc ADR,JD,0.34
+Advanced Micro Devices Inc,AMD,0.34
+Align Technology Inc,ALGN,0.32
+MercadoLibre Inc,MELI,0.32
+Sirius XM Holdings Inc,SIRI,0.31
+PACCAR Inc,PCAR,0.3
+Dollar Tree Inc,DLTR,0.29
+Cintas Corp,CTAS,0.29
+VeriSign Inc,VRSN,0.29
+Verisk Analytics Inc,VRSK,0.29
+Willis Towers Watson PLC,WLTW,0.28
+United Continental Holdings Inc,UAL,0.28
+Cerner Corp,CERN,0.28
+IDEXX Laboratories Inc,IDXX,0.27
+Lululemon Athletica Inc,LULU,0.26
+Microchip Technology Inc,MCHP,0.25
+Ulta Beauty Inc,ULTA,0.25
+NetEase Inc ADR,NTES,0.24
+Cadence Design Systems Inc,CDNS,0.24
+Ctrip.com International Ltd ADR,CTRP,0.24
+Fastenal Co,FAST,0.23
+Check Point Software Technologies Ltd,CHKP,0.23
+Synopsys Inc,SNPS,0.22
+KLA-Tencor Corp,KLAC,0.21
+NetApp Inc,NTAP,0.21
+Incyte Corp,INCY,0.2
+Expedia Group Inc,EXPE,0.2
+Maxim Integrated Products Inc,MXIM,0.19
+American Airlines Group Inc,AAL,0.18
+BioMarin Pharmaceutical Inc,BMRN,0.18
+ASML Holding NV,ASML,0.18
+Skyworks Solutions Inc,SWKS,0.17
+Wynn Resorts Ltd,WYNN,0.17
+Fox Corp,FOXA,0.16
+Western Digital Corp,WDC,0.16
+Liberty Global PLC,LBTYK,0.16
+Citrix Systems Inc,CTXS,0.16
+Symantec Corp,SYMC,0.16
+Hasbro Inc,HAS,0.15
+Take-Two Interactive Software Inc,TTWO,0.15
+Mylan NV,MYL,0.13
+JB Hunt Transport Services Inc,JBHT,0.13
+Henry Schein Inc,HSIC,0.13
+Fox Corp,FOX,0.12
+Liberty Global PLC,LBTYA,0.06

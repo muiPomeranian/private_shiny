@@ -1,4 +1,4 @@
-# function part !!!,
+# function part !!!..!
 # same as R packages I built. Pleaes refer there if curious!!
 
 ## this will calculated the standard deviation based on sliding window.
@@ -80,6 +80,7 @@ get_multiple_stock = function(list_stocks,start, end)
   for(i in 1:length(list_stocks))
   {
     df_output = cbind(df_output, getyahooprice(list_stocks[i],start,end))
+    print(i)
   }
   return(df_output)
 }
@@ -259,3 +260,13 @@ compute_upside_downside = function(stock, benchmark)
   return(df_output)
   
 }
+
+## function to parse the html table of nasdaq symbols
+parse_nasdaq = function(link)
+{
+  
+  table = htmltab(link, 1)
+  table = table %>% select(Company, Symbol, Weight)
+  
+}
+

@@ -1,4 +1,4 @@
-# Interface design details !,
+# Interface design details..!
 ################################################
 
 library(shiny)
@@ -34,6 +34,10 @@ sidebar <- dashboardSidebar(
   (
     menuItem("Technical Analysis", tabName = "tab4", icon = icon("chart-line" ))
   ) ,
+  sidebarMenu
+  (
+    menuItem("Portfolio Backtest Tool", tabName = "tab5", icon = icon("chart-line" ))
+  ) ,
   sidebarMenu(
     menuItem("About this app", tabName = "About")
   ),
@@ -45,6 +49,21 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   
   theme = shinytheme("lumen"),
+  tags$head(
+    tags$style(
+      HTML(".shiny-notification {
+           height: 100px;
+           width: 400px;
+           position:fixed;
+           top: calc(90% - 50px);;
+           left: calc(90% - 400px);;
+           }
+           "
+      )
+      )
+      ),
+  
+  
   
   tabItems(
     ## this is the first page
@@ -232,6 +251,42 @@ body <- dashboardBody(
            plotOutput("plot_tech")
       )
     ),
+    tabItem(
+      tabName = "tab5",
+      box( solidHeader = T, status = "primary",  title = "Technical Analysis Parameters", width = NULL,
+           flowLayout(
+             dateRangeInput('dateRange_bt',
+                            label = 'Time Frame Selection', 
+                            format = "mm/dd/yyyy",weekstart = 1,
+                            start = '2018-01-01', end = Sys.time(),
+                            width = "100%"
+             ),
+             sliderInput(inputId = 'number_comp', label = 'Select number of companies in portfolio', 
+                         min = 10, max = 40, value = 20, step = 5),
+             
+             radioButtons(inputId = 'reviewf', label = 'Portfolio Review Frequency in Months', 
+                          choices = c(3)),
+             selectInput(inputId = 'strategy', label = 'Selection Strategy', choices = c('momentum3m','faber3m')),
+             selectInput(inputId = 'weight', label = 'Selection Weighting', choices = c('equal','Push TO Kill,Do not select')),
+             actionButton("calc", "Calculate Portfolio", icon = icon('save'),
+                          style="color: #fff; background-color: #39954E; border-color: #2e6da4")
+           )
+           
+      ),
+      box( solidHeader = T, status = "primary",  title = "Technical Analysis Results", width = NULL,
+           tabsetPanel(
+             
+             tabPanel("Historical Series", icon  = icon("chart-line"),
+                      plotlyOutput('portfolio_t')
+             ),
+             tabPanel("Companies",icon  = icon("chart-line"),
+                      dataTableOutput("portfolio")
+             )
+           )
+           
+           
+      )
+    ),
     ## this is the third page
     tabItem(
       tabName = "About",
@@ -298,10 +353,19 @@ body <- dashboardBody(
       h4(
         'User can choose the stock ticker name(single), and time frame and few hyper parameter for the bollinger band, candle and smoothing moving average graph to see as an indicator. This indicator and chart is well used for the derivative trader also.
         If further analysis is required, user can choose to control the parameter. All time frame is dynamically adjusted for the given period. No need to worry about out of index,boundary,timeframe error'
+      ),
+      h1('Port Folio Backtest Tool'),
+      br(),
+      h4('This app creates the bactesting. Suppose User want to invest in the stock market and User have 500 largest company such as Snp, or Nasdaq 100. Each time User buy company, it costs fees. User should know which one will growth in a month or decrease. This will be what trader could think useful.'),
+      br(),
+      h4('This creates the mechanism which select samples out of the entire amoutn of stocks and then select the top 10~40(what user choose, less than the total) stocks which will be grow. User can choose this number. Then it will calculate faber3m or momentum based score to show how will it be performed in the future. Then User can choose the best stock to invest according to the result graph. Once company is selected, User hold it for 3month'),
+      br(),
+      h4('User should save csv file manually which contains multiple stocks as a time series data'),
+      h4('User may look up the default Nasdaq100 pre installed data to see the format. ')
       )
+    
       )
-      )
-  )
+    )
 
 # Create the UI using the header, sidebar, and body
 #################### PAGE ####################

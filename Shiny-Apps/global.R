@@ -1,4 +1,4 @@
-# Loading universal stuff (packages, connecting to the other main project, DB, etc...)!,
+# Loading universal stuff (packages, connecting to the other main project, DB, etc...)!..!
 
 library(quantmod)
 library(TTR)
@@ -10,16 +10,21 @@ library(DT)
 library(plotly)
 library(PerformanceAnalytics)
 library(timeSeries)
-library(TTR)
 library(fBasics)
 library(xts)
 library(profvis)
-library(quantmod)
 library(factoextra)
 library(tidyquant)
+library(tibble)
+library(dplyr)
+library(rvest)
+library(rlist)
+library(stringi)
+library(htmltab)
+
 
 source('functions.R')
-
+source('functions_variables.R')
 name_project = "DASHBOARD STATISTICS"
 
 # filename = 'prices_full.csv'
@@ -45,3 +50,16 @@ load('data/st_dev_df.Rdata')
 # ticker name will be readed 
 tickers =read.csv('data/tickers.csv', header = F)
 tickers = as.character(tickers[,1])
+
+
+# # ticker name will be readed 
+# nasdaq =read.csv('data/nasdaq.csv', header = T, stringsAsFactors  = F)
+# ##https://www.slickcharts.com/nasdaq100
+
+nasdaq = parse_nasdaq('https://www.slickcharts.com/nasdaq100')
+
+
+
+
+
+

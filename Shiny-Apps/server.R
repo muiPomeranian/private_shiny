@@ -1,4 +1,4 @@
-## Server side !,
+## Server side ..!
 
 # This is the brain of the UI. 
 # Deals with the actual calculations and data manipulation. 
@@ -295,9 +295,94 @@ shinyServer(function(input,output, session){
     {
       # ticker_name = 'MSFT'
       single_stock = getSymbols(input$ticker_tech, src='yahoo',from= input$dateRange_tech[1],to  = input$dateRange_tech[2], auto.assign = FALSE)
-
+      
       draw_stock_analysis(single_stock,input$ticker_tech, input$stdev, input$bbn1,input$bbn2,input$bbn3,paste('last',input$months,'months'))
     }
+    
+  })
+  
+  # dataframe = observe({
+  #   
+  #   get_multiple_stock(nasdaq$Symbol, input$dateRange_bt[1], input$dateRange_bt[2])  
+  # } )
+  
+  ## observe event = do something on event
+  ## here event is the button calc
+  observeEvent(input$calc, { 
+    
+    withProgress(message = 'In progress', 
+                 value = 0, {
+                   
+                   incProgress(0.1, detail = 'Prices Download')
+                   
+                   
+                   ## downloal all price series for 100 nasdaq companies
+                   dataframe = get_multiple_stock(nasdaq$Symbol, input$dateRange_bt[1], input$dateRange_bt[2])    
+                   
+                   ## frequency is the frequency at which you review your portfolio
+                   ## suppose every 3 months you want to select the best 20 companies according to their momentum
+                   ## and invest your money in it. after 3 months, you sell all, and buy the 20 which are NOW the best according to their momentum
+                   freq = input$reviewf
+                   
+                   ## usually 10 to 30 companies to be invested in
+                   num_companies = input$number_comp
+                   dayz = time(dataframe)
+                   
+                   days_end = find_eom(dayz)
+                   print(days_end)
+                   
+                   dates_review = select_freq(days_end, freq)
+                   print('-----')
+                   print(dates_review)
+                   dates_review_q = select_freq(days_end, 3)
+                   
+                   incProgress(0.5, detail = 'Calculations')
+                   
+                   if(input$strategy=='momentum3m'){
+                     sel_cr = momentum_3m(dataframe,dates_review,freq)
+                   }
+                   
+                   if(input$strategy=='faber3m'){
+                     sel_cr = faber_3m(dataframe,dates_review,freq)
+                   }
+                   
+                   portfolio = determine_portfolio(sel_cr, num_companies)
+                   
+                   save(portfolio, file = 'portfolio.Rdata')
+                   
+                   calc = calculate_historical_track( dataframe, portfolio, input$weight)
+                   
+                   
+                   portfolio = cbind(as.character(time(portfolio)),portfolio)
+                   
+                   incProgress(0.8, detail = 'Output')
+                   
+                   output$portfolio = DT::renderDataTable({
+                     DT::datatable(portfolio)
+                   })
+                   
+                   # print(calc[,1])
+                   # print(calc[,3])
+                   print(calc[1,1])
+                   print(calc[nrow(calc),1])
+                   
+                   time_calc = as.Date(as.character(calc[,1]),origin = "1900-01-01")
+                   
+                   nd = getyahooprice('SPY',calc[1,1], calc[nrow(calc),1])
+                   
+                   nd = rebase(nd[,1],100)
+                   nd = rbind(nd,nd[nrow(nd),])
+                   print(dim(nd))
+                   print(nd)
+                   output$portfolio_t = renderPlotly({
+                     
+                     # print(row.names(df_output))
+                     plot_ly(x = calc[,1], y =  as.numeric(calc[,3]), name ='Composite Portfolio', type = 'scatter', mode = 'lines' )%>% 
+                       add_trace(y  = as.numeric(nd[,1]), name =  'S&P 500',mode = 'lines') 
+                   })
+                   
+                 })
+    
     
   })
   
